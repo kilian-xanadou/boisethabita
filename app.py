@@ -11,7 +11,7 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 # ==========================================
-# DONNÉES DES PROJETS (Mode "Snackable" / Vente)
+# DONNÉES DES PROJETS (Mode "Snackable" / Vente Bois & Habitat)
 # ==========================================
 projets = {
     "cava-vin": {
@@ -222,7 +222,9 @@ def scan(id_projet):
     <body>
         <div class="event-banner">📍 En direct du Salon Bois & Habitat</div>
         <div class="header">
-            <img src="/static/images/logo.png" alt="Logo Ambiose">
+            <a href="https://ambiose.be/" target="_blank">
+                <img src="/static/images/logo.png" alt="Logo Ambiose">
+            </a>
         </div>
         
         <div class="hero-image"></div>
