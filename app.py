@@ -208,7 +208,8 @@ def scan(id_projet):
             
             .bottom-bar {{ position: fixed; bottom: 0; left: 0; right: 0; background: #FFFFFF; box-shadow: 0 -10px 20px rgba(0,0,0,0.1); padding: 15px 20px 25px 20px; z-index: 100; }}
             
-            .fomo-box {{ background-color: #fcf1eb; border: 1px solid #e8d0c1; color: #a1584b; font-size: 0.75em; font-weight: 600; text-align: center; padding: 8px; border-radius: 8px; margin-bottom: 12px; }}
+            /* --- Styles pour l'Avantage Salon --- */
+            .fomo-box {{ background-color: #fcf1eb; border: 1px solid #e8d0c1; color: #a1584b; font-size: 0.8em; font-weight: 600; text-align: center; padding: 10px; border-radius: 8px; margin-bottom: 12px; }}
             
             .cta-sticky {{ display: block; width: 100%; max-width: 400px; margin: 0 auto; background-color: #C26D5C; color: #FFFFFF; text-decoration: none; padding: 18px 20px; border-radius: 30px; text-align: center; font-weight: 700; font-size: 1.1em; box-shadow: 0 4px 15px rgba(194, 109, 92, 0.4); animation: pulse-terracotta 2s infinite; }}
             
@@ -240,9 +241,9 @@ def scan(id_projet):
         </div>
         
         <div class="bottom-bar">
-            <div class="fomo-box">🎁 Avantage Salon : 1ère étude 3D offerte pour tout contact aujourd'hui !</div>
+            <div class="fomo-box">🎁 Avantage Salon : -25% sur les électros pour votre futur projet en cliquant ci-dessous</div>
             <a href="{whatsapp_url}" target="_blank" class="cta-sticky">
-                📞 Concevoir mon projet
+                💬 Concevoir notre projet
             </a>
         </div>
     </body>
@@ -273,7 +274,9 @@ def remote_control():
         </style>
     </head>
     <body>
-        <img src="/static/images/logo.png" style="max-height: 40px;" alt="Logo Ambiose">
+        <a href="https://ambiose.be/" target="_blank">
+            <img src="/static/images/logo.png" style="max-height: 40px;" alt="Logo Ambiose">
+        </a>
         <h2>Télécommande Cadres</h2>
         <div id="status"></div>
         <div class="remote-grid">{boutons_html}</div>
