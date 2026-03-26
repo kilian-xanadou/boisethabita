@@ -17,15 +17,10 @@
             background-size: contain; background-repeat: no-repeat; background-position: center;
             transition: background-image 1s ease-in-out;
         }
-        .watermark {
-            position: absolute; bottom: 30px; right: 30px;
-            max-height: 80px; width: auto; opacity: 0.6; z-index: 10;
-        }
     </style>
 </head>
 <body>
     <div id="image-container"></div>
-    <img src="{{ url_for('static', filename='images/logo.png') }}" class="watermark" alt="Ambiose">
 
     <script>
         const toutesLesImages = {{ toutes_les_images | tojson | safe }};
@@ -33,9 +28,9 @@
         let diaporamaInterval;
         let indexImageActuelle = 0;
         
-        // --- NOUVEAU : Le minuteur d'inactivité ---
+        // --- Le minuteur d'inactivité (3 minutes) ---
         let minuteurInactivite;
-        const TEMPS_INACTIVITE = 3 * 60 * 1000; // 3 minutes en millisecondes (tu peux changer le 3 par 5 si tu préfères 5 min)
+        const TEMPS_INACTIVITE = 3 * 60 * 1000; 
 
         function afficherImage(url) {
             imageContainer.style.backgroundImage = `url('${url}')`;
@@ -50,19 +45,18 @@
                 diaporamaInterval = setInterval(() => {
                     indexImageActuelle = (indexImageActuelle + 1) % images.length;
                     afficherImage(images[indexImageActuelle]);
-                }, 5000); // Change la photo toutes les 5 secondes
+                }, 5000); 
             }
         }
 
         function relancerMinuteurInactivite() {
-            clearTimeout(minuteurInactivite); // On annule l'ancien chrono
+            clearTimeout(minuteurInactivite);
             minuteurInactivite = setTimeout(() => {
-                console.log("⏱️ Inactivité détectée : Retour automatique à l'écran de veille.");
+                console.log("⏱️ Retour automatique à l'écran de veille.");
                 demarrerDiaporama(toutesLesImages);
             }, TEMPS_INACTIVITE);
         }
 
-        // Au lancement de la page, on démarre le diaporama
         demarrerDiaporama(toutesLesImages);
 
         const socket = io();
@@ -71,12 +65,10 @@
         socket.on('lancer_diaporama', function(data) {
             if (data.is_idle) {
                 demarrerDiaporama(data.urls);
-                clearTimeout(minuteurInactivite); // Pas besoin de chrono si on est déjà en veille
+                clearTimeout(minuteurInactivite);
             } else {
-                clearInterval(diaporamaInterval); // On coupe le diaporama
-                afficherImage(data.urls[0]); // On affiche le projet scanné
-                
-                // On lance le chrono pour revenir à la normale dans 3 minutes !
+                clearInterval(diaporamaInterval);
+                afficherImage(data.urls[0]);
                 relancerMinuteurInactivite();
             }
         });
